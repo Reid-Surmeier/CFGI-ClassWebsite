@@ -13,7 +13,7 @@ window.initializeClassPage = function () {
 
 const STUDENTS = [
   "Alisha Zhou",
-  "Candice Li",
+  "Candice Lee",
   "Em Ayuso Rizzo",
   "Julia Primiero",
   "Nicole Sun",

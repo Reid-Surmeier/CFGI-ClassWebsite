@@ -46,9 +46,9 @@ const WORK = {
   },
 
   // ------------------------------------------------------------------
-  // CANDICE LI
+  // CANDICE LEE
   // ------------------------------------------------------------------
-  "Candice Li": {
+  "Candice Lee": {
     "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
     "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
     "03": { link: "", thumbnail: "" }, // Image Processing
