@@ -1,0 +1,8 @@
+# Source renders and local animation experiments.
+/[Cc]apsules/
+/[Cc]apsule2/
+/[Cc]apsules2/
+/capsule-transition*.webp
+/capsule2-transition*.webp
+!/capsule-transition-navigation.webp
+.DS_Store

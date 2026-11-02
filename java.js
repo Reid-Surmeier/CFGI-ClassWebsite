@@ -1,3 +1,8 @@
+// Reinitialize page interactions after capsule navigation.
+window.initializeClassPage = function () {
+  window.classPageListeners?.abort();
+  const listeners = new AbortController();
+  window.classPageListeners = listeners;
 // List interactions for the Projects and Students pages.
 // - Hover a row: the type gets a blurred spot-color overlay (CSS) and a
 //   strip of the tab peeks up from the bottom.
@@ -244,7 +249,7 @@ if (tab) {
     sharedSize = designSize * Math.max(0.1, Math.min(1, widthFit, heightFit));
     return sharedSize;
   };
-  window.addEventListener("resize", () => (sharedSize = null));
+  window.addEventListener("resize", () => (sharedSize = null), { signal: listeners.signal });
   // Measure again once the web font has loaded.
   document.fonts?.ready.then(() => (sharedSize = null));
 
@@ -279,10 +284,10 @@ if (tab) {
   tab.addEventListener("focusout", hideName);
 
   tab.addEventListener("click", (e) => e.stopPropagation());
-  document.addEventListener("click", close);
+  document.addEventListener("click", close, { signal: listeners.signal });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close();
-  });
+  }, { signal: listeners.signal });
 }
 
 // Projects page: (Weekly) / (Final) toggle. "Final" moves project 10 to
@@ -330,3 +335,6 @@ if (viewButtons.length && projectList) {
     })
   );
 }
+
+};
+window.initializeClassPage();

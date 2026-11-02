@@ -338,3 +338,31 @@ body.tab-open { padding-bottom: calc(163 * var(--u)); }
   .about { max-width: none; }
   .work-name { width: 100%; }
 }
+
+/* Capsule navigation fades the complete page underneath a persistent overlay. */
+.capsule-navigation {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 9999;
+  pointer-events: none;
+}
+.capsule-active .page,
+.capsule-active .project-tab,
+.capsule-active .work-name {
+  transition: opacity 600ms ease-in;
+  pointer-events: none;
+}
+.capsule-navigation-used .page > *,
+.capsule-navigation-used .rows > * {
+  animation: none;
+}
+.capsule-out .page,
+.capsule-out .project-tab,
+.capsule-out .work-name {
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+}
+html[aria-busy="true"] { cursor: progress; }
