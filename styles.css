@@ -1,8 +1,8 @@
-/* Sizes follow the 1728px-wide Figma frame. --u is one Figma pixel:
-   it grows on wider windows but never shrinks below 1px, so narrower
-   windows keep the design layout and scroll horizontally. */
+/* Sizes follow the 1728px-wide Figma frame. --u is one Figma pixel and
+   scales with the window width, so the layout fits any screen. Narrow
+   screens switch to a stacked layout (see the media query at the end). */
 :root {
-  --u: max(1px, calc(100vw / 1728));
+  --u: calc(100vw / 1728);
   --ink: #000;
   --muted: rgba(0, 0, 0, 0.2);
   --paper: #fff;
@@ -26,7 +26,7 @@ body {
   font-weight: 400;
   line-height: normal;
   overflow-wrap: break-word;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -37,18 +37,50 @@ a { color: inherit; text-decoration: none; }
   gap: calc(11 * var(--u));
   padding: calc(20 * var(--u)) var(--pad-x);
   width: 100%;
-  min-width: 1728px;
   min-height: 100vh;
 }
 .page--projects { --pad-x: calc(32 * var(--u)); }
-.page--info {
-  gap: calc(17 * var(--u));
-  padding-top: calc(37 * var(--u));
-  padding-bottom: calc(37 * var(--u));
+.page--info { padding-bottom: calc(37 * var(--u)); }
+
+/* ---------- Page transitions ---------- */
+/* Arrival: each block (except the top bar, which stays put)
+   fades in while flying up from below, staggered.
+   Departure: transition.js adds .is-leaving and the page fades out. */
+@keyframes fly-in {
+  from { opacity: 0; transform: translateY(calc(40 * var(--u))); }
+  to   { opacity: 1; transform: none; }
+}
+.page > :not(.rows):not(.topbar),
+.rows > * {
+  animation: fly-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+.page > :nth-child(1) { --i: 0; }
+.page > :nth-child(2) { --i: 1; }
+.page > :nth-child(3) { --i: 2; }
+.page > :nth-child(4) { --i: 3; }
+.rows > :nth-child(1)  { --i: 3; }
+.rows > :nth-child(2)  { --i: 4; }
+.rows > :nth-child(3)  { --i: 5; }
+.rows > :nth-child(4)  { --i: 6; }
+.rows > :nth-child(5)  { --i: 7; }
+.rows > :nth-child(6)  { --i: 8; }
+.rows > :nth-child(n+7) { --i: 9; }
+
+.page > :not(.topbar) { transition: opacity 0.25s ease; }
+.is-leaving .page > :not(.topbar) { opacity: 0; }
+.is-leaving .project-tab { opacity: 0; transition: opacity 0.25s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page > :not(.rows), .rows > * { animation: none; }
+  .page > * { transition: none; }
 }
 
 /* ---------- Top bar ---------- */
+/* Same position and spacing on every page: the side inset is fixed at
+   43 regardless of the page's own --pad-x. */
 .topbar {
+  padding: 0 calc(43 * var(--u) - var(--pad-x));
   display: flex;
   align-items: center;
   font-size: var(--fs-nav);
@@ -150,9 +182,12 @@ a { color: inherit; text-decoration: none; }
    of the window. Hover shows a 38px strip; click raises the whole tab
    with a square per piece of work. */
 .project-tab {
+  --tab-w: calc(240 * var(--u));  /* raised folder tab, centered */
+  --tab-h: calc(32 * var(--u));
+  --tab-r: calc(16 * var(--u));   /* corner and fillet radius */
   position: fixed;
-  left: 0;
-  right: 0;
+  left: calc(20 * var(--u));
+  right: calc(20 * var(--u));
   bottom: 0;
   z-index: 10;
   display: flex;
@@ -162,9 +197,34 @@ a { color: inherit; text-decoration: none; }
   padding: calc(24 * var(--u)) var(--pad-x);
   background: var(--spot, #000);
   border-radius: calc(20 * var(--u)) calc(20 * var(--u)) 0 0;
-  transform: translateY(100%);
+  transform: translateY(calc(100% + var(--tab-h)));
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   pointer-events: none;
+}
+/* Folder tab: a rounded block above the bar's top edge, joined to it by
+   two concave fillets. */
+.project-tab::before,
+.project-tab::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.project-tab::before {
+  top: calc(-1 * var(--tab-h));
+  width: var(--tab-w);
+  height: calc(var(--tab-h) + 1px);
+  background: var(--spot, #000);
+  border-radius: var(--tab-r) var(--tab-r) 0 0;
+}
+.project-tab::after {
+  top: calc(-1 * var(--tab-r));
+  width: calc(var(--tab-w) + 2 * var(--tab-r));
+  height: var(--tab-r);
+  background:
+    radial-gradient(circle at 0 0, transparent calc(var(--tab-r) - 0.5px), var(--spot, #000) var(--tab-r)) 0 0 / var(--tab-r) var(--tab-r) no-repeat,
+    radial-gradient(circle at 100% 0, transparent calc(var(--tab-r) - 0.5px), var(--spot, #000) var(--tab-r)) 100% 0 / var(--tab-r) var(--tab-r) no-repeat;
 }
 .project-tab.is-peek { transform: translateY(calc(100% - 38 * var(--u))); }
 .project-tab.is-open { transform: translateY(0); pointer-events: auto; }
@@ -236,6 +296,7 @@ body.tab-open { padding-bottom: calc(163 * var(--u)); }
 
 /* ---------- Info ---------- */
 .about {
+  margin-top: calc(6 * var(--u));
   max-width: calc(1285 * var(--u));
   font-size: var(--fs-row);
 }
@@ -253,4 +314,69 @@ body.tab-open { padding-bottom: calc(163 * var(--u)); }
   align-items: center;
   font-size: var(--fs-foot);
   margin-top: auto;
+}
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 800px) {
+  :root { --u: calc(100vw / 900); }
+  .page,
+  .page--projects { --pad-x: calc(40 * var(--u)); }
+
+  .topbar { padding-inline: 0; flex-wrap: wrap; row-gap: calc(8 * var(--u)); }
+  .topbar__course { width: 100%; }
+  .topbar__nav a,
+  .topbar__nav span { width: auto; margin-right: calc(48 * var(--u)); }
+
+  .heading,
+  .page--info .heading { height: auto; flex-wrap: wrap; white-space: normal; }
+
+  .student { padding-left: 0; white-space: normal; }
+  .project { gap: calc(40 * var(--u)); }
+  .project__title { flex: 1; min-width: 0; max-width: none; }
+  .project__num { width: calc(170 * var(--u)); }
+
+  .about { max-width: none; }
+  .work-name { width: 100%; }
+}
+
+/* Capsule navigation fades the complete page underneath a persistent overlay. */
+.capsule-navigation {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 9999;
+  pointer-events: none;
+}
+.capsule-active .page,
+.capsule-active .project-tab,
+.capsule-active .work-name {
+  transition: opacity 600ms ease-in;
+  pointer-events: none;
+}
+.capsule-navigation-used .page > *,
+.capsule-navigation-used .rows > * {
+  animation: none;
+}
+.capsule-out .page,
+.capsule-out .project-tab,
+.capsule-out .work-name {
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+}
+html[aria-busy="true"] { cursor: progress; }
+
+/* by noah cha */
+/* One visible copy of every Info character; scroll wipes color left to right. */
+.about .reading-word { display: inline-block; white-space: nowrap; }
+.about .reading-space { white-space: pre-wrap; }
+.about .reading-character {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(
+    to right,
+    transparent var(--read, 0%),
+    var(--marker-color) var(--read, 0%)
+  );
 }
