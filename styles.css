@@ -366,3 +366,17 @@ body.tab-open { padding-bottom: calc(163 * var(--u)); }
   transition: opacity 350ms ease-out;
 }
 html[aria-busy="true"] { cursor: progress; }
+
+/* by noah cha */
+/* One visible copy of every Info character; scroll wipes color left to right. */
+.about .reading-word { display: inline-block; white-space: nowrap; }
+.about .reading-space { white-space: pre-wrap; }
+.about .reading-character {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(
+    to right,
+    transparent var(--read, 0%),
+    var(--marker-color) var(--read, 0%)
+  );
+}

@@ -336,5 +336,99 @@ if (viewButtons.length && projectList) {
   );
 }
 
+// by noah cha
+// Info-page character highlights follow document scrolling in both directions.
+const about = document.querySelector('.page--info .about');
+if (about) {
+  const CHANNEL_STEPS = 256;
+  const COLOR_COUNT = CHANNEL_STEPS ** 3;
+  const characterSeed = character => {
+    let hash = 2166136261;
+    for (const symbol of character) hash = Math.imul(hash ^ symbol.codePointAt(0), 16777619);
+    hash = Math.imul(hash ^ (hash >>> 16), 2246822507);
+    return (hash ^ (hash >>> 13)) >>> 0;
+  };
+  const hexFromIndex = index => `#${[0, 1, 2].map(power =>
+    (Math.floor(index / CHANNEL_STEPS ** power) % CHANNEL_STEPS).toString(16).padStart(2, '0')
+  ).join('')}`;
+  const characterColors = characters => {
+    const occurrences = new Map();
+    const groups = new Map();
+    const reserved = new Set();
+    return characters.map(character => {
+      const occurrence = occurrences.get(character) ?? 0;
+      occurrences.set(character, occurrence + 1);
+      const batch = Math.floor(occurrence / 5);
+      const key = JSON.stringify([character, batch]);
+      if (groups.has(key)) return groups.get(key);
+      if (reserved.size >= COLOR_COUNT) throw new Error('Character highlight palette exhausted');
+      let index = (characterSeed(character) + batch * 3 * (1 + CHANNEL_STEPS + CHANNEL_STEPS ** 2)) % COLOR_COUNT;
+      let hex = hexFromIndex(index);
+      while (reserved.has(hex)) {
+        index = (index + 1) % COLOR_COUNT;
+        hex = hexFromIndex(index);
+      }
+      reserved.add(hex);
+      groups.set(key, hex);
+      return hex;
+    });
+  };
+
+  // Wrap text nodes only, leaving emphasis and superscripts intact.
+  if (!about.querySelector('[data-reading-character]')) {
+    const walker = document.createTreeWalker(about, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    for (const node of textNodes) {
+      const fragment = document.createDocumentFragment();
+      for (const word of node.textContent.split(/(\s+)/).filter(Boolean)) {
+        const wrapper = document.createElement('span');
+        wrapper.className = /^\s+$/.test(word) ? 'reading-space' : 'reading-word';
+        for (const character of Array.from(word)) {
+          const span = document.createElement('span');
+          span.className = 'reading-character';
+          span.dataset.readingCharacter = '';
+          span.textContent = character;
+          wrapper.append(span);
+        }
+        fragment.append(wrapper);
+      }
+      node.replaceWith(fragment);
+    }
+  }
+  const characters = Array.from(about.querySelectorAll('[data-reading-character]'));
+  const colors = characterColors(characters.map(character => character.textContent));
+  characters.forEach((character, index) => character.style.setProperty('--marker-color', colors[index]));
+  const previousFill = new Array(characters.length).fill(-1);
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    const runway = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = runway > 0 ? Math.max(0, Math.min(1, window.scrollY / runway)) : 0;
+    const read = progress * characters.length;
+    characters.forEach((character, index) => {
+      const fill = Math.max(0, Math.min(1, read - index));
+      if (previousFill[index] === fill) return;
+      previousFill[index] = fill;
+      character.style.setProperty('--read', `${fill * 100}%`);
+      character.style.color = fill < 1 ? '#ffffff' : '#000000';
+    });
+  };
+  const schedule = () => {
+    if (!frame && !listeners.signal.aborted) frame = requestAnimationFrame(update);
+  };
+  const observer = new ResizeObserver(schedule);
+  observer.observe(document.querySelector('main.page'));
+  observer.observe(about);
+  window.addEventListener('scroll', schedule, { passive: true, signal: listeners.signal });
+  window.addEventListener('resize', schedule, { signal: listeners.signal });
+  document.fonts?.ready.then(schedule);
+  listeners.signal.addEventListener('abort', () => {
+    cancelAnimationFrame(frame);
+    observer.disconnect();
+  }, { once: true });
+  update();
+}
+
 };
 window.initializeClassPage();
