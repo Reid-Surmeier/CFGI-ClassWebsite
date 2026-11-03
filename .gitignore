@@ -2,7 +2,9 @@
 /[Cc]apsules/
 /[Cc]apsule2/
 /[Cc]apsules2/
+/[Cc]apsulesPhone/
 /capsule-transition*.webp
 /capsule2-transition*.webp
 !/capsule-transition-navigation.webp
+!/capsule-transition-phone.webp
 .DS_Store

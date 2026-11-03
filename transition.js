@@ -1,12 +1,20 @@
 /* Keep the capsule overlay alive while the next page fades in underneath it. */
 (function () {
-  const DURATION = 1042; // 25 PNG frames at 24 fps.
-  const SWAP_AT = Math.round(DURATION * 0.4);
+  // by Noah Cha
+  // Match the site's narrow-screen layout; download only the selected animation.
+  const phoneScreen = matchMedia('(max-width: 800px)');
+  const animations = {
+    desktop: { file: 'capsule-transition-navigation.webp', duration: 958 }, // 1280 × 720, quality 75.
+    phone: { file: 'capsule-transition-phone.webp', duration: 958 }, // 360 × 640, quality 60.
+  };
+  const selectedAnimation = () => phoneScreen.matches ? animations.phone : animations.desktop;
+  const SWAP_AT = 350; // Preserve the 350ms fade-out.
+  const FADE_IN = 700; // Matches styles.css; let the incoming page finish fading.
   const root = document.documentElement;
   const pageNames = new Set(['index.html', 'student.html', 'projects.html', 'info.html']);
   const base = new URL('.', location.href);
   let busy = false;
-  let animationBlob;
+  const animationBlobs = new Map();
 
   async function request(url) {
     const controller = new AbortController();
@@ -20,16 +28,28 @@
     }
   }
 
-  function loadAnimation() {
-    if (!animationBlob) {
-      animationBlob = request(new URL('capsule-transition-navigation.webp', base))
+  function loadAnimation(animation) {
+    if (!animationBlobs.has(animation.file)) {
+      const pending = request(new URL(animation.file, base))
         .then(response => response.blob())
-        .catch(error => { animationBlob = null; throw error; });
+        .catch(error => { animationBlobs.delete(animation.file); throw error; });
+      animationBlobs.set(animation.file, pending);
     }
-    return animationBlob;
+    return animationBlobs.get(animation.file);
   }
 
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+  // Start fetching on navigation intent; reuse the same bytes on later clicks.
+  const warmAnimation = event => {
+    if (event.target.closest('.topbar a[href]') &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches && location.protocol !== 'file:') {
+      loadAnimation(selectedAnimation()).catch(() => {}); // A click can retry if preloading failed.
+    }
+  };
+  document.addEventListener('pointerover', warmAnimation);
+  document.addEventListener('pointerdown', warmAnimation, { passive: true });
+  document.addEventListener('focusin', warmAnimation);
 
   document.addEventListener('click', async event => {
     if (event.defaultPrevented || event.button !== 0 ||
@@ -48,7 +68,9 @@
     let overlay;
     let objectUrl;
     try {
-      const [response, blob] = await Promise.all([request(url), loadAnimation()]);
+      // Keep this choice stable throughout playback, even if the screen rotates.
+      const animation = selectedAnimation();
+      const [response, blob] = await Promise.all([request(url), loadAnimation(animation)]);
       const next = new DOMParser().parseFromString(await response.text(), 'text/html');
       const page = next.querySelector('main.page');
       if (!page) throw new Error('Missing destination page');
@@ -83,7 +105,7 @@
       // Commit the new page's transparent state before starting its fade-in.
       document.querySelector('main.page').getBoundingClientRect();
       root.classList.remove('capsule-out');
-      await delay(DURATION - SWAP_AT);
+      await delay(Math.max(animation.duration - SWAP_AT, FADE_IN));
       const heading = document.querySelector('h1') || document.querySelector('main.page');
       document.querySelector('main.page').inert = false;
       heading.setAttribute('tabindex', '-1');
