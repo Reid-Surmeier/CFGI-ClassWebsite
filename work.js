@@ -113,12 +113,12 @@ const WORK = {
   // NOAH CHA
   // ------------------------------------------------------------------
   "Noah Cha": {
-    "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
-    "03": { link: "", thumbnail: "" }, // Image Processing
-    "04": { link: "", thumbnail: "" }, // 3D Software
-    "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
-    "06": { link: "", thumbnail: "" }, // Intro to User Interfaces
+    "01": { link: "https://noahcha0907.github.io/CFGI-cha/week1.html", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://noahcha0907.github.io/CFGI-cha/week2.html", thumbnail: "" }, // Open GL, Generative Design
+    "03": { link: "https://noahcha0907.github.io/CFGI-cha/week3.html", thumbnail: "work/project-3.jpg" }, // Image Processing
+    "04": { link: "https://noahcha0907.github.io/CFGI-cha/blender-experiment-1.html", thumbnail: "" }, // 3D Software
+    "05": { link: "https://noahcha0907.github.io/CFGI-cha/week5.html", thumbnail: "" }, // Parametric 3D and Simulation
+    "06": { link: "https://noahcha0907.github.io/CFGI-cha/week6.html", thumbnail: "" }, // Intro to User Interfaces
     "07": { link: "", thumbnail: "" }, // UX
     "08": { link: "", thumbnail: "" }, // Games as Interfaces
     "09": { link: "", thumbnail: "" }, // HID
