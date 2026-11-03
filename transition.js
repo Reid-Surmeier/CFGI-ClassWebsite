@@ -64,6 +64,8 @@
     event.preventDefault();
     if (busy) return;
     busy = true;
+    //added sound effect to transition
+    new Audio(new URL('sound-effects/woosh.mp3', base)).play().catch(() => {});
     root.setAttribute('aria-busy', 'true');
     let overlay;
     let objectUrl;
