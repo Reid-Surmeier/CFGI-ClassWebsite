@@ -97,6 +97,8 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   transition: color 0.15s, transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+/* button that corresponds to html page is colored black, else is colored grey */
 .topbar__course a {
   display: inline-block;
   position: relative;

@@ -46,6 +46,7 @@ const PROJECTS = [
 const tab = document.querySelector(".project-tab");
 const rows = document.querySelectorAll(".js-row");
 
+//student and homepage button animation setup
 rows.forEach((row) => {
   if (!row.dataset.project) return;
   const content = document.createElement("span");
@@ -177,6 +178,9 @@ if (tab) {
     row.addEventListener("blur", unpeek);
     row.addEventListener("click", (e) => {
       e.stopPropagation();
+
+      //student name and project name animations and sound effects
+      //for project names animation goes right off the screen and reappears left onto screen before returning to original pos
       if (row.dataset.project) {
         const content = row.querySelector(".project__content");
         if (content) {
@@ -193,12 +197,14 @@ if (tab) {
             { duration: 500, easing: "linear" }
           );
         }
+        //for student names rotate 360 deg
       } else {
         row.querySelector(".fx")?.animate(
           [{ rotate: "0deg" }, { rotate: "360deg" }],
           { duration: 600, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)" }
         );
       }
+      //sound effect is played
       new Audio(new URL("sound-effects/short_woosh.mp3", document.baseURI))
         .play()
         .catch(() => {});
