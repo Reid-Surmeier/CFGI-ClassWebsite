@@ -352,7 +352,7 @@ body.tab-open { padding-bottom: calc(163 * var(--u)); }
 .capsule-active .page,
 .capsule-active .project-tab,
 .capsule-active .work-name {
-  transition: opacity 600ms ease-in;
+  transition: opacity 700ms ease-in;
   pointer-events: none;
 }
 .capsule-navigation-used .page > *,
