@@ -46,6 +46,14 @@ const PROJECTS = [
 const tab = document.querySelector(".project-tab");
 const rows = document.querySelectorAll(".js-row");
 
+rows.forEach((row) => {
+  if (!row.dataset.project) return;
+  const content = document.createElement("span");
+  content.className = "project__content";
+  content.append(...row.childNodes);
+  row.append(content);
+});
+
 // The squares to show for a clicked row.
 function piecesFor(row) {
   const { project, student } = row.dataset;
@@ -169,6 +177,31 @@ if (tab) {
     row.addEventListener("blur", unpeek);
     row.addEventListener("click", (e) => {
       e.stopPropagation();
+      if (row.dataset.project) {
+        const content = row.querySelector(".project__content");
+        if (content) {
+          const rect = content.getBoundingClientRect();
+          const offscreenRight = window.innerWidth - rect.left + rect.width + 1;
+          const offscreenLeft = -rect.right - 1;
+          content.animate(
+            [
+              { transform: "translateX(0)", offset: 0 },
+              { transform: `translateX(${offscreenRight}px)`, offset: 0.45 },
+              { transform: `translateX(${offscreenLeft}px)`, offset: 0.46 },
+              { transform: "translateX(0)", offset: 1 },
+            ],
+            { duration: 500, easing: "linear" }
+          );
+        }
+      } else {
+        row.querySelector(".fx")?.animate(
+          [{ rotate: "0deg" }, { rotate: "360deg" }],
+          { duration: 600, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)" }
+        );
+      }
+      new Audio(new URL("sound-effects/short_woosh.mp3", document.baseURI))
+        .play()
+        .catch(() => {});
       openRow === row ? close() : open(row);
     });
     row.addEventListener("keydown", (e) => {
@@ -331,6 +364,9 @@ if (viewButtons.length && projectList) {
   viewButtons.forEach((btn) =>
     btn.addEventListener("click", (e) => {
       e.stopPropagation(); // don't close an open tab
+      new Audio(new URL("sound-effects/short_woosh.mp3", document.baseURI))
+        .play()
+        .catch(() => {});
       setView(btn.dataset.view);
     })
   );
