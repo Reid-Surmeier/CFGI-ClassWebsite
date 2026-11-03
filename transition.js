@@ -4,8 +4,8 @@
   // Match the site's narrow-screen layout; download only the selected animation.
   const phoneScreen = matchMedia('(max-width: 800px)');
   const animations = {
-    desktop: { file: 'capsule-transition-navigation.webp', duration: 958 }, // 1920 × 1080, quality 95.
-    phone: { file: 'capsule-transition-phone.webp', duration: 958 }, // 1080 × 1920, quality 95.
+    desktop: { file: 'capsule-transition-navigation.webp?v=c53556e9afe0', duration: 958 }, // 1920 × 1080, quality 95.
+    phone: { file: 'capsule-transition-phone.webp?v=5ad448795ea3', duration: 958 }, // 1080 × 1920, quality 95.
   };
   const selectedAnimation = () => phoneScreen.matches ? animations.phone : animations.desktop;
   const SWAP_AT = 350; // Preserve the 350ms fade-out.
