@@ -128,7 +128,10 @@ if (tab) {
           preview.loading = "lazy";
           preview.tabIndex = -1;
           preview.setAttribute("aria-hidden", "true");
-          preview.setAttribute("sandbox", "allow-scripts allow-same-origin");
+          // Previews are silent: no scripts, so the embedded page can't
+          // start audio. Pages that draw with JavaScript need a thumbnail.
+          preview.setAttribute("sandbox", "allow-same-origin");
+          preview.setAttribute("allow", "autoplay 'none'");
           square.append(preview);
         }
         return square;
