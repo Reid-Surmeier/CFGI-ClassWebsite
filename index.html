@@ -17,8 +17,14 @@
         <a href="info.html">Info</a>
       </nav>
     </header>
-    <!-- Reid Surmeier: the cabinet (three.js scene in cabinet/, ?clean hides its toolbar) -->
-    <iframe class="home-cabinet" src="cabinet/?clean" title="Cabinet with Reid's head and the class objects" loading="eager"></iframe>
+    <!-- Reid Surmeier: the cabinet (three.js scene in cabinet/, ?clean hides its toolbar). GitHub Pages lets browsers cache every
+         file for 10 minutes, so the frame's address carries the cabinet's build tag (cabinet/build.json, fetched uncached):
+         a new build is a new address and never comes out of an old cache. -->
+    <iframe class="home-cabinet" title="Cabinet with Reid's head and the class objects" loading="eager"></iframe>
+    <script>
+      fetch('cabinet/build.json', { cache: 'no-store' }).then(r => r.json()).then(j => j.v).catch(() => Date.now())
+        .then(v => { document.querySelector('.home-cabinet').src = 'cabinet/?clean&v=' + encodeURIComponent(v); });
+    </script>
   </main>
   <!-- Reid Surmeier: loading screen until the cabinet has drawn (at least 1 s, at most 10 s) -->
   <div class="site-loader" aria-hidden="true"><p class="site-loader__name">ctc-2156-01</p><div class="site-loader__bar"><span></span></div></div>
