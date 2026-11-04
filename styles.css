@@ -451,3 +451,28 @@ body.has-picture-rain { isolation: isolate; }
 .picture-rain-status[hidden] { display: none; }
 .capsule-active .picture-rain-layer { transition: opacity 700ms ease-in; }
 .capsule-out .picture-rain-layer { opacity: 0; transition: opacity 350ms ease-out; }
+
+/* ---------- Homepage cabinet (Reid Surmeier) ---------- */
+/* Centred under the top bar at the photo's 716:950 aspect, as tall as the window allows. */
+.home-cabinet {
+  display: block;
+  align-self: center;
+  width: min(calc((100vh - 140 * var(--u) - 48px) * 716 / 950), 100%);
+  aspect-ratio: 716 / 950;
+  margin-top: calc(40 * var(--u));
+  border: 0;
+}
+
+/* ---------- Homepage loading screen (Reid Surmeier) ---------- */
+.site-loader {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  background: var(--paper); font-size: var(--fs-nav); transition: opacity 0.45s ease;
+}
+.site-loader.is-done { opacity: 0; pointer-events: none; }
+.site-loader__name { font-size: max(16px, var(--fs-nav)); }
+.site-loader__bar { width: min(240px, 50vw); height: 2px; background: var(--muted); overflow: hidden; }
+.site-loader__bar span { display: block; height: 100%; background: var(--ink); animation: site-loader-fill 6s cubic-bezier(0.1, 0.7, 0.2, 1) forwards; }
+.site-loader.is-done .site-loader__bar span { animation: none; width: 100%; }
+@keyframes site-loader-fill { from { width: 0; } to { width: 92%; } }
+@media (prefers-reduced-motion: reduce) { .site-loader__bar span { animation: none; width: 60%; } }

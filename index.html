@@ -17,7 +17,23 @@
         <a href="info.html">Info</a>
       </nav>
     </header>
+    <!-- Reid Surmeier: the cabinet (three.js scene in cabinet/, ?clean hides its toolbar) -->
+    <iframe class="home-cabinet" src="cabinet/?clean" title="Cabinet with Reid's head and the class objects" loading="eager"></iframe>
   </main>
+  <!-- Reid Surmeier: loading screen until the cabinet has drawn (at least 1 s, at most 10 s) -->
+  <div class="site-loader" aria-hidden="true"><p class="site-loader__name">ctc-2156-01</p><div class="site-loader__bar"><span></span></div></div>
+  <script>
+    (function () {
+      const loader = document.querySelector('.site-loader'), t0 = performance.now();
+      let done = false;
+      function finish() {
+        if (done) return; done = true;
+        setTimeout(() => { loader.classList.add('is-done'); setTimeout(() => loader.remove(), 500); }, Math.max(0, 1000 - (performance.now() - t0)));
+      }
+      addEventListener('message', e => { if (e.origin === location.origin && e.data === 'cabinet-ready') finish(); });
+      setTimeout(finish, 10000);
+    })();
+  </script>
   <script src="work.js"></script>
   <script src="picture-rain.js"></script>
   <script src="java.js"></script>
