@@ -451,3 +451,14 @@ body.has-picture-rain { isolation: isolate; }
 .picture-rain-status[hidden] { display: none; }
 .capsule-active .picture-rain-layer { transition: opacity 700ms ease-in; }
 .capsule-out .picture-rain-layer { opacity: 0; transition: opacity 350ms ease-out; }
+
+/* ---------- Homepage cabinet (Reid Surmeier) ---------- */
+/* Centred under the top bar at the photo's 716:950 aspect, as tall as the window allows. */
+.home-cabinet {
+  display: block;
+  align-self: center;
+  width: min(calc((100vh - 140 * var(--u) - 48px) * 716 / 950), 100%);
+  aspect-ratio: 716 / 950;
+  margin-top: calc(40 * var(--u));
+  border: 0;
+}
