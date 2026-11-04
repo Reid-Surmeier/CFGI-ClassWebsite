@@ -16,11 +16,15 @@ const ITEMS = [
   { f: 'gadget', shelf: 'HC', x: [553, 664], h: 139, back: 40 },   // the mockup's hand is not a model: it stands on the shelf
 ];
 
+// downloads start when this module is imported, alongside the cabinet and the head
+const loader = new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/'));
+const LOADED = Promise.all(ITEMS.map(it => loader.loadAsync('obj/' + it.f + '.glb')));
+
 export async function addObjects(scene, camera, C) {
-  const loader = new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/')), W = C.W, Ds = C.Ds, T = 18;
+  const W = C.W, Ds = C.Ds, T = 18;
   const lift = (y, z) => (C.lift ?? 0) * THREE.MathUtils.clamp(y / (C.HB - T), 0, 1) * THREE.MathUtils.clamp((Ds - z) / Ds, 0, 1);
   camera.updateMatrixWorld(); camera.updateProjectionMatrix();
-  const loaded = await Promise.all(ITEMS.map(it => loader.loadAsync('obj/' + it.f + '.glb')));
+  const loaded = await LOADED;
   const placed = {};
   for (const [n, it] of ITEMS.entries()) {                    // in order: an item can stand in front of an earlier one
     const g = loaded[n].scene;

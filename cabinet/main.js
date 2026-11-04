@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-import { addObjects } from './objects.js?v=3';
+import { addObjects } from './objects.js?v=4';
 import { makeFilter } from './filter.js';
 import { addBanner } from './banner.js?v=4';
 
@@ -230,3 +230,5 @@ renderer.setAnimationLoop(() => {
   draw(scene, camera);
 });
 window.__ready = true; host.classList.add('ready');   // fade the live scene in over the still
+let drawn = 0;                                     // tell an embedding page (class homepage loader) once real frames are on screen
+(function signal() { if (++drawn < 4) return requestAnimationFrame(signal); try { window.parent.postMessage('cabinet-ready', location.origin); } catch {} })();
