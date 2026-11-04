@@ -81,12 +81,12 @@ const WORK = {
   // JULIA PRIMIERO
   // ------------------------------------------------------------------
   "Julia Primiero": {
-    "01": { link: "https://juliicory.github.io/graphics-and-interfaces/", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "https://juliicory.github.io/graphics-and-interfaces/", thumbnail: "" }, // Open GL, Generative Design
+    "01": { link: "https://juliicory.github.io/graphics-and-interfaces/week-1.html", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://juliicory.github.io/graphics-and-interfaces/week-2.html", thumbnail: "" }, // Open GL, Generative Design
     "03": { link: "", thumbnail: "" }, // Image Processing
     "04": { link: "", thumbnail: "" }, // 3D Software
     "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
-    "06": { link: "https://juliicory.github.io/graphics-and-interfaces/", thumbnail: "work/julia_proj6.png" }, // Intro to User Interfaces
+    "06": { link: "https://juliicory.github.io/graphics-and-interfaces/week-6.html", thumbnail: "work/julia_proj6.png" }, // Intro to User Interfaces
     "07": { link: "", thumbnail: "" }, // UX
     "08": { link: "", thumbnail: "" }, // Games as Interfaces
     "09": { link: "", thumbnail: "" }, // HID
