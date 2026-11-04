@@ -225,9 +225,9 @@ const WORK = {
   // ZIHAN HUANG
   // ------------------------------------------------------------------
   "Zihan Huang": {
-    "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
-    "03": { link: "", thumbnail: "" }, // Image Processing
+    "01": { link: "https://mikufan010-hash.github.io/week1-/week1.html", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://mikufan010-hash.github.io/week1-/week2.html", thumbnail: "" }, // Open GL, Generative Design
+    "03": { link: "https://mikufan010-hash.github.io/week1-/week3.html", thumbnail: "" }, // Image Processing
     "04": { link: "", thumbnail: "" }, // 3D Software
     "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
     "06": { link: "", thumbnail: "" }, // Intro to User Interfaces
