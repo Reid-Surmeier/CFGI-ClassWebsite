@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { addObjects } from './objects.js?v=3';
 import { makeFilter } from './filter.js';
 import { addBanner } from './banner.js?v=4';
@@ -12,6 +13,7 @@ const Q = new URLSearchParams(location.search);
 const DEBUG_EYES = Q.has('debugeyes');
 const RAZ = Q.has('raz');                         // PROTOTYPE: Psychonauts 1 (Raz) eye behaviour, see the ?raz block below
 if (Q.has('clean')) document.getElementById('ui').style.display = 'none';
+const headP = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync('head.glb');   // head.glb is meshopt-compressed; start it now, alongside the cabinet
 const [C, P] = await Promise.all(['camera.json', 'placement.json'].map(u => fetch(u).then(r => r.json())));
 
 const host = document.getElementById('frame');
@@ -65,7 +67,7 @@ const key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(-150, 90
 const head = new THREE.Group();
 head.position.set(P.X0, P.Y0, P.Z0); head.scale.setScalar(P.scale);
 if (!Q.has('nohead')) scene.add(head);            // ?nohead: cabinet only (lightmap correction renders)
-const gltf = await new GLTFLoader().loadAsync('head.glb');
+const gltf = await headP;
 gltf.scene.rotation.y = -Math.PI / 2;            // the mesh faces +X; turn it to face the camera (+Z)
 head.add(gltf.scene);
 if (RAZ) gltf.scene.traverse(o => {               // Raz's face: diffuse-only lighting on the painted map, no specular
@@ -223,4 +225,4 @@ renderer.setAnimationLoop(() => {
   banner?.(performance.now());
   draw(scene, camera);
 });
-window.__ready = true;
+window.__ready = true; host.classList.add('ready');   // fade the live scene in over the still
