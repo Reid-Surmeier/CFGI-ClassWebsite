@@ -176,17 +176,17 @@ const WORK = {
   // ------------------------------------------------------------------
   // SUSAN HE
   // ------------------------------------------------------------------
-  "Susan He": {
-    "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
-    "03": { link: "", thumbnail: "" }, // Image Processing
-    "04": { link: "", thumbnail: "" }, // 3D Software
-    "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
-    "06": { link: "", thumbnail: "" }, // Intro to User Interfaces
-    "07": { link: "", thumbnail: "" }, // UX
-    "08": { link: "", thumbnail: "" }, // Games as Interfaces
-    "09": { link: "", thumbnail: "" }, // HID
-    "10": { link: "", thumbnail: "" }, // Final Project
+    "Susan He": {
+    "01": { link: "https://su0511.github.io/Graphic_CTC/week1/index.html", thumbnail: "" },
+    "02": { link: "https://su0511.github.io/Graphic_CTC/week2/index.html", thumbnail: "" },
+    "03": { link: "https://su0511.github.io/Graphic_CTC/week3/index.html", thumbnail: "" },
+    "04": { link: "https://su0511.github.io/Graphic_CTC/week4/index.html", thumbnail: "" },
+    "05": { link: "https://su0511.github.io/Graphic_CTC/week5/index.html", thumbnail: "" },
+    "06": { link: "https://su0511.github.io/Graphic_CTC/week6/index.html", thumbnail: "" },
+    "07": { link: "https://su0511.github.io/Graphic_CTC/week7/index.html", thumbnail: "" },
+    "08": { link: "https://su0511.github.io/Graphic_CTC/week8/index.html", thumbnail: "" },
+    "09": { link: "", thumbnail: "" },
+    "10": { link: "", thumbnail: "" },
   },
 
   // ------------------------------------------------------------------
