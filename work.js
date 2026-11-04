@@ -97,12 +97,12 @@ const WORK = {
   // NICOLE SUN
   // ------------------------------------------------------------------
   "Nicole Sun": {
-    "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
-    "03": { link: "", thumbnail: "" }, // Image Processing
+    "01": { link: "https://cornercreature.github.io/CTC-2156-01_Nicole/assign1/index.html", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://cornercreature.github.io/CTC-2156-01_Nicole/assign2/index.html", thumbnail: "" }, // Open GL, Generative Design
+    "03": { link: "https://cornercreature.github.io/CTC-2156-01_Nicole/assign3/index.html", thumbnail: "" }, // Image Processing
     "04": { link: "", thumbnail: "" }, // 3D Software
     "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
-    "06": { link: "", thumbnail: "" }, // Intro to User Interfaces
+    "06": { link: "https://cornercreature.github.io/CTC-2156-01_Nicole/assign5/index.html", thumbnail: "" }, // Intro to User Interfaces
     "07": { link: "", thumbnail: "" }, // UX
     "08": { link: "", thumbnail: "" }, // Games as Interfaces
     "09": { link: "", thumbnail: "" }, // HID
