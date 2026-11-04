@@ -51,7 +51,7 @@ document.getElementById('bBlink').onclick = () => window.__blink?.();
 const FILTERS = ['off', 'pixel', 'ps2'], fNow = FILTERS.includes(q.get('filter')) ? q.get('filter') : 'off', bFilter = document.getElementById('bFilter');
 bFilter.textContent = 'Filter: ' + fNow;
 bFilter.onclick = () => { const n = FILTERS[(FILTERS.indexOf(fNow) + 1) % FILTERS.length]; n === 'off' ? q.delete('filter') : q.set('filter', n); location.search = q.toString().replace(/=(&|$)/g, '$1'); };
-import(v1 ? './v1.js?v=11' : './main.js?v=15');
+import(v1 ? './v1.js?v=12' : './main.js?v=16');
 </script>
 </body>
 </html>

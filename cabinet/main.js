@@ -127,11 +127,15 @@ function lids(pitch, blink) {                     // pitch: radians, + up; blink
 // ---- behaviour: gaze follows the pointer, idle saccades, blinks; lids follow gaze pitch ----
 const pointer = new THREE.Vector2(), ray = new THREE.Raycaster();
 let lastMove = -1e9, saccadeAt = 0, idle = new THREE.Vector2();
-renderer.domElement.addEventListener('pointermove', e => {
+function track(e, ox = 0, oy = 0) {               // ox, oy: this page's offset inside a parent page
   const b = renderer.domElement.getBoundingClientRect();
-  pointer.set((e.clientX - b.left) / b.width * 2 - 1, -(e.clientY - b.top) / b.height * 2 + 1);
+  pointer.set((e.clientX - ox - b.left) / b.width * 2 - 1, -(e.clientY - oy - b.top) / b.height * 2 + 1);
   lastMove = performance.now();
-});
+}
+renderer.domElement.addEventListener('pointermove', e => track(e));
+try {                                              // embedded (class homepage iframe): follow the cursor over the whole page
+  if (window.frameElement) window.parent.addEventListener('pointermove', e => { const f = window.frameElement.getBoundingClientRect(); track(e, f.left, f.top); });
+} catch { /* cross-origin parent: canvas only */ }
 const target = new THREE.Vector3(), gazeYaw = [0, 0], gazePitch = [0, 0];
 let blinkStart = -1, nextBlink = 1500;
 const ease = (a, b, k) => a + (b - a) * k;
