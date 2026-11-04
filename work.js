@@ -49,12 +49,12 @@ const WORK = {
   // CANDICE LEE
   // ------------------------------------------------------------------
   "Candice Lee": {
-    "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
-    "03": { link: "", thumbnail: "" }, // Image Processing
-    "04": { link: "", thumbnail: "" }, // 3D Software
-    "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
-    "06": { link: "", thumbnail: "" }, // Intro to User Interfaces
+    "01": { link: "https://clee30-collab.github.io/CandiceLee_cfgi/week1.html", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://clee30-collab.github.io/CandiceLee_cfgi/week2_2.html", thumbnail: "" }, // Open GL, Generative Design
+    "03": { link: "https://clee30-collab.github.io/CandiceLee_cfgi/week3.html", thumbnail: "" }, // Image Processing
+    "04": { link: "https://clee30-collab.github.io/CandiceLee_cfgi/week4.html", thumbnail: "" }, // 3D Software
+    "05": { link: "https://clee30-collab.github.io/CandiceLee_cfgi/week5.html", thumbnail: "" }, // Parametric 3D and Simulation
+    "06": { link: "https://clee30-collab.github.io/CandiceLee_cfgi/week6.html", thumbnail: "" }, // Intro to User Interfaces
     "07": { link: "", thumbnail: "" }, // UX
     "08": { link: "", thumbnail: "" }, // Games as Interfaces
     "09": { link: "", thumbnail: "" }, // HID
