@@ -95,7 +95,6 @@ a { color: inherit; text-decoration: none; }
 }
 .topbar__nav a {
   position: relative;
-  transition: color 0.15s, transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* button that corresponds to html page is colored black, else is colored grey */
@@ -103,6 +102,25 @@ a { color: inherit; text-decoration: none; }
   display: inline-block;
   position: relative;
   color: var(--muted);
+}
+
+/* Candice Lee: fixed click box around the moving link text */
+.topbar__course a,
+.topbar__nav a { pointer-events: none; }
+.topbar a .topbar__hit,
+.topbar a .topbar__label {
+  display: inline-block;
+  width: auto;
+  color: inherit;
+}
+.topbar a .topbar__hit {
+  margin: calc(-1 * var(--dodge-y)) calc(-1 * var(--dodge-x));
+  padding: var(--dodge-y) var(--dodge-x);
+  pointer-events: auto;
+  transition: none;
+}
+.topbar a .topbar__label {
+  pointer-events: none;
   transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .topbar__nav a:hover,
@@ -342,10 +360,15 @@ body.tab-open { padding-bottom: calc(163 * var(--u)); }
   .page,
   .page--projects { --pad-x: calc(40 * var(--u)); }
 
-  .topbar { padding-inline: 0; flex-wrap: wrap; row-gap: calc(8 * var(--u)); }
-  .topbar__course { width: 100%; }
+  /* Candice Lee: keep the top nav on one row, font stops shrinking at 12px */
+  .topbar {
+    --bar-u: calc(100vw / 1728);
+    padding-inline: 0;
+    font-size: max(12px, calc(32 * var(--bar-u)));
+  }
+  .topbar__course { width: calc(601 * var(--bar-u)); }
   .topbar__nav a,
-  .topbar__nav span { width: auto; margin-right: calc(48 * var(--u)); }
+  .topbar__nav span { width: calc(372.3 * var(--bar-u)); }
 
   .heading,
   .page--info .heading { height: auto; flex-wrap: wrap; white-space: normal; }
