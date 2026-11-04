@@ -9,7 +9,7 @@ export function addBanner(scene, camera, C) {
   const w = (X1 - X0) * mmPx, h = w * ASPECT, cx = ((X0 + X1) / 2 - C.CX) * mmPx;
   const g = new THREE.PlaneGeometry(w, h, 20, 26); g.translate(cx, top - h / 2, Z);
   const rest = g.attributes.position.array.slice();
-  const tex = new THREE.TextureLoader().load('tex/poster-v3.jpg'); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const tex = new THREE.TextureLoader().load('tex/poster-v3.jpg' + new URL(import.meta.url).search); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
   const mesh = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide }));
   mesh.name = 'banner'; scene.add(mesh);
   const pos = g.attributes.position;
