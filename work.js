@@ -81,12 +81,12 @@ const WORK = {
   // JULIA PRIMIERO
   // ------------------------------------------------------------------
   "Julia Primiero": {
-    "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
+    "01": { link: "https://juliicory.github.io/graphics-and-interfaces/", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://juliicory.github.io/graphics-and-interfaces/", thumbnail: "" }, // Open GL, Generative Design
     "03": { link: "", thumbnail: "" }, // Image Processing
     "04": { link: "", thumbnail: "" }, // 3D Software
     "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
-    "06": { link: "", thumbnail: "" }, // Intro to User Interfaces
+    "06": { link: "https://juliicory.github.io/graphics-and-interfaces/", thumbnail: "work/julia_proj6.png" }, // Intro to User Interfaces
     "07": { link: "", thumbnail: "" }, // UX
     "08": { link: "", thumbnail: "" }, // Games as Interfaces
     "09": { link: "", thumbnail: "" }, // HID
@@ -145,12 +145,12 @@ const WORK = {
   // SARA PARULEKAR
   // ------------------------------------------------------------------
   "Sara Parulekar": {
-    "01": { link: "", thumbnail: "" }, // Hello World and Algorithmic Drawing
-    "02": { link: "", thumbnail: "" }, // Open GL, Generative Design
-    "03": { link: "", thumbnail: "" }, // Image Processing
-    "04": { link: "", thumbnail: "" }, // 3D Software
-    "05": { link: "", thumbnail: "" }, // Parametric 3D and Simulation
-    "06": { link: "", thumbnail: "" }, // Intro to User Interfaces
+    "01": { link: "https://sara-parulekar.github.io/coding-gph-inter/week1.html", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://sara-parulekar.github.io/coding-gph-inter/week2-noise.html", thumbnail: "" }, // Open GL, Generative Design
+    "03": { link: "https://sara-parulekar.github.io/coding-gph-inter/week3.html", thumbnail: "" }, // Image Processing
+    "04": { link: "https://sara-parulekar.github.io/coding-gph-inter/week4/week4.html", thumbnail: "" }, // 3D Software
+    "05": { link: "https://sara-parulekar.github.io/coding-gph-inter/week%205/week5.html", thumbnail: "" }, // Parametric 3D and Simulation
+    "06": { link: "https://trill-fluent-30052092.figma.site/", thumbnail: "" }, // Intro to User Interfaces
     "07": { link: "", thumbnail: "" }, // UX
     "08": { link: "", thumbnail: "" }, // Games as Interfaces
     "09": { link: "", thumbnail: "" }, // HID
@@ -176,17 +176,17 @@ const WORK = {
   // ------------------------------------------------------------------
   // SUSAN HE
   // ------------------------------------------------------------------
-    "Susan He": {
-    "01": { link: "https://su0511.github.io/Graphic_CTC/week1/index.html", thumbnail: "" },
-    "02": { link: "https://su0511.github.io/Graphic_CTC/week2/index.html", thumbnail: "" },
-    "03": { link: "https://su0511.github.io/Graphic_CTC/week3/index.html", thumbnail: "" },
-    "04": { link: "https://su0511.github.io/Graphic_CTC/week4/index.html", thumbnail: "" },
-    "05": { link: "https://su0511.github.io/Graphic_CTC/week5/index.html", thumbnail: "" },
-    "06": { link: "https://su0511.github.io/Graphic_CTC/week6/index.html", thumbnail: "" },
-    "07": { link: "https://su0511.github.io/Graphic_CTC/week7/index.html", thumbnail: "" },
-    "08": { link: "https://su0511.github.io/Graphic_CTC/week8/index.html", thumbnail: "" },
-    "09": { link: "", thumbnail: "" },
-    "10": { link: "", thumbnail: "" },
+  "Susan He": {
+    "01": { link: "https://su0511.github.io/Graphic_CTC/week1/index.html", thumbnail: "" }, // Hello World and Algorithmic Drawing
+    "02": { link: "https://su0511.github.io/Graphic_CTC/week2/index.html", thumbnail: "" }, // Open GL, Generative Design
+    "03": { link: "https://su0511.github.io/Graphic_CTC/week3/index.html", thumbnail: "" }, // Image Processing
+    "04": { link: "https://su0511.github.io/Graphic_CTC/week4/index.html", thumbnail: "" }, // 3D Software
+    "05": { link: "https://su0511.github.io/Graphic_CTC/week5/index.html", thumbnail: "" }, // Parametric 3D and Simulation
+    "06": { link: "https://su0511.github.io/Graphic_CTC/week6/index.html", thumbnail: "" }, // Intro to User Interfaces
+    "07": { link: "https://su0511.github.io/Graphic_CTC/week7/index.html", thumbnail: "" }, // UX
+    "08": { link: "https://su0511.github.io/Graphic_CTC/week8/index.html", thumbnail: "" }, // Games as Interfaces
+    "09": { link: "", thumbnail: "" }, // HID
+    "10": { link: "", thumbnail: "" }, // Final Project
   },
 
   // ------------------------------------------------------------------
