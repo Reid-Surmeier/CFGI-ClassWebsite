@@ -3,6 +3,7 @@ window.initializeClassPage = function () {
   window.classPageListeners?.abort();
   const listeners = new AbortController();
   window.classPageListeners = listeners;
+  if (document.querySelector('.page--info .about')) window.startPictureRain(listeners.signal);
 // List interactions for the Projects and Students pages.
 // - Hover a row: the type gets a blurred spot-color overlay (CSS) and a
 //   strip of the tab peeks up from the bottom.

@@ -400,3 +400,31 @@ html[aria-busy="true"] { cursor: progress; }
     var(--marker-color) var(--read, 0%)
   );
 }
+
+/* by Noah Cha — ripples behind text, transparent spheres above all page content. */
+body.has-picture-rain { isolation: isolate; }
+.has-picture-rain .page { position: relative; z-index: 1; }
+.picture-rain-layer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+.picture-rain-ripples { z-index: 0; }
+.picture-rain-spheres { z-index: 30; }
+.picture-rain-status {
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  max-width: min(360px, 85vw);
+  padding: 12px;
+  background: #fffffff2;
+  color: #333;
+  font: 14px/1.5 system-ui, sans-serif;
+  z-index: 31;
+  pointer-events: none;
+}
+.picture-rain-status[hidden] { display: none; }
+.capsule-active .picture-rain-layer { transition: opacity 700ms ease-in; }
+.capsule-out .picture-rain-layer { opacity: 0; transition: opacity 350ms ease-out; }
